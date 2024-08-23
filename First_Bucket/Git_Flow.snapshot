@@ -1,0 +1,435 @@
+{
+  "header" : {
+    "dataModelVersion" : "3"
+  },
+  "content" : {
+    "flowSnapshot" : {
+      "externalControllerServices" : { },
+      "flowContents" : {
+        "comments" : "This flow will track how many times a given flow file routes through it.  If the number of times exceeds a specific maximum then it will route to the 'limit exceeded' port.  Otherwise it will route to 'retry'.\n\nThe attributes it uses are 'retry.counter' and 'retry.maxcount'.  If the 'retry.maxcount' is specified on a given flowfile then it will be honored.  Otherwise a default of '3' is set as the maximum retry count.\n\nAs the flowfile goes through this flow it increments the 'retry.maxcount' attribute by 1.  It then checks if this value exceeds 'retry.maxcount' and if so then it routes the flowfile to 'limit exceeded' otherwise it routes to 'retry'.\n\nSo you can configure the 'retry' relationship to loop back to the process you want and you can send the 'limit exceeded' to move on from that process to something else.",
+        "componentType" : "PROCESS_GROUP",
+        "connections" : [ {
+          "backPressureDataSizeThreshold" : "0 MB",
+          "backPressureObjectThreshold" : 10,
+          "bends" : [ ],
+          "componentType" : "CONNECTION",
+          "destination" : {
+            "comments" : "",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "71666763-db68-34f6-b929-727180c43fc2",
+            "instanceIdentifier" : "10f53281-4064-4725-267c-57c508f86539",
+            "name" : "Check Retry Count",
+            "type" : "PROCESSOR"
+          },
+          "flowFileExpiration" : "0 sec",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "0da501aa-898d-3c44-9910-0c01508e5fff",
+          "instanceIdentifier" : "d3170ec7-c212-466f-5b81-cf1877230a6f",
+          "labelIndex" : 1,
+          "loadBalanceCompression" : "DO_NOT_COMPRESS",
+          "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+          "name" : "",
+          "prioritizers" : [ ],
+          "selectedRelationships" : [ "success" ],
+          "source" : {
+            "comments" : "",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "873d80fc-aeff-3ed0-b2ff-c33417c7d481",
+            "instanceIdentifier" : "8692729d-e3f2-472d-b51a-e002bc152418",
+            "name" : "Set retry counter",
+            "type" : "PROCESSOR"
+          },
+          "zIndex" : 0
+        }, {
+          "backPressureDataSizeThreshold" : "0 MB",
+          "backPressureObjectThreshold" : 10,
+          "bends" : [ ],
+          "componentType" : "CONNECTION",
+          "destination" : {
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "470b4a1c-fd7e-30ff-aa84-f2cac42c08f7",
+            "instanceIdentifier" : "62021278-2608-4b09-6bcd-7edf3bb650c3",
+            "name" : "limit exceeded",
+            "type" : "OUTPUT_PORT"
+          },
+          "flowFileExpiration" : "0 sec",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "b1b4f633-549c-3e7d-b2c5-702fbd862171",
+          "instanceIdentifier" : "9f1ccea3-7f03-4026-8268-3f05cb9a76fd",
+          "labelIndex" : 1,
+          "loadBalanceCompression" : "DO_NOT_COMPRESS",
+          "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+          "name" : "",
+          "prioritizers" : [ ],
+          "selectedRelationships" : [ "success" ],
+          "source" : {
+            "comments" : "",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "8ebc0677-0515-3bc7-9291-79b3f02eb7c5",
+            "instanceIdentifier" : "34b75d26-46b8-3d67-1327-74902378972d",
+            "name" : "Reset retry counter",
+            "type" : "PROCESSOR"
+          },
+          "zIndex" : 0
+        }, {
+          "backPressureDataSizeThreshold" : "0 MB",
+          "backPressureObjectThreshold" : 10,
+          "bends" : [ ],
+          "componentType" : "CONNECTION",
+          "destination" : {
+            "comments" : "",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "873d80fc-aeff-3ed0-b2ff-c33417c7d481",
+            "instanceIdentifier" : "8692729d-e3f2-472d-b51a-e002bc152418",
+            "name" : "Set retry counter",
+            "type" : "PROCESSOR"
+          },
+          "flowFileExpiration" : "0 sec",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "771c2797-1bdd-3d38-af10-dd90749d67c2",
+          "instanceIdentifier" : "fb4298e6-37b3-47ae-939e-d043ce499f47",
+          "labelIndex" : 1,
+          "loadBalanceCompression" : "DO_NOT_COMPRESS",
+          "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+          "name" : "",
+          "prioritizers" : [ ],
+          "selectedRelationships" : [ "" ],
+          "source" : {
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "decf1583-fe68-3cef-bb4f-0327f884d039",
+            "instanceIdentifier" : "535627d4-d4fb-4963-8832-de6e6969619e",
+            "name" : "data",
+            "type" : "INPUT_PORT"
+          },
+          "zIndex" : 0
+        }, {
+          "backPressureDataSizeThreshold" : "0 MB",
+          "backPressureObjectThreshold" : 10,
+          "bends" : [ ],
+          "componentType" : "CONNECTION",
+          "destination" : {
+            "comments" : "",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "8ebc0677-0515-3bc7-9291-79b3f02eb7c5",
+            "instanceIdentifier" : "34b75d26-46b8-3d67-1327-74902378972d",
+            "name" : "Reset retry counter",
+            "type" : "PROCESSOR"
+          },
+          "flowFileExpiration" : "0 sec",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "f460fb70-47a4-3f86-9bd9-c3750aa66434",
+          "instanceIdentifier" : "ec2fe73b-c7c0-489c-5ccc-50c478c26da7",
+          "labelIndex" : 1,
+          "loadBalanceCompression" : "DO_NOT_COMPRESS",
+          "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+          "name" : "",
+          "prioritizers" : [ ],
+          "selectedRelationships" : [ "unmatched" ],
+          "source" : {
+            "comments" : "",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "71666763-db68-34f6-b929-727180c43fc2",
+            "instanceIdentifier" : "10f53281-4064-4725-267c-57c508f86539",
+            "name" : "Check Retry Count",
+            "type" : "PROCESSOR"
+          },
+          "zIndex" : 0
+        }, {
+          "backPressureDataSizeThreshold" : "0 MB",
+          "backPressureObjectThreshold" : 10,
+          "bends" : [ ],
+          "componentType" : "CONNECTION",
+          "destination" : {
+            "comments" : "Items sent to this port have not yet exceeded the maximum retry count.",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "14537044-b273-387b-a215-ae85f75fcdf2",
+            "instanceIdentifier" : "de67351f-6e63-4557-9c56-9daca271abcc",
+            "name" : "retry",
+            "type" : "OUTPUT_PORT"
+          },
+          "flowFileExpiration" : "0 sec",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "89bf14d0-01bf-3569-a7b2-132c53a3632a",
+          "instanceIdentifier" : "155cdc9a-b9ff-4f6d-e02f-126c747cc383",
+          "labelIndex" : 1,
+          "loadBalanceCompression" : "DO_NOT_COMPRESS",
+          "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+          "name" : "",
+          "prioritizers" : [ ],
+          "selectedRelationships" : [ "Try again" ],
+          "source" : {
+            "comments" : "",
+            "groupId" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+            "id" : "71666763-db68-34f6-b929-727180c43fc2",
+            "instanceIdentifier" : "10f53281-4064-4725-267c-57c508f86539",
+            "name" : "Check Retry Count",
+            "type" : "PROCESSOR"
+          },
+          "zIndex" : 0
+        } ],
+        "controllerServices" : [ ],
+        "defaultBackPressureDataSizeThreshold" : "1 GB",
+        "defaultBackPressureObjectThreshold" : 10000,
+        "defaultFlowFileExpiration" : "0 sec",
+        "flowFileConcurrency" : "UNBOUNDED",
+        "flowFileOutboundPolicy" : "STREAM_WHEN_AVAILABLE",
+        "funnels" : [ ],
+        "identifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+        "inputPorts" : [ {
+          "allowRemoteAccess" : false,
+          "componentType" : "INPUT_PORT",
+          "concurrentlySchedulableTaskCount" : 1,
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "decf1583-fe68-3cef-bb4f-0327f884d039",
+          "instanceIdentifier" : "535627d4-d4fb-4963-8832-de6e6969619e",
+          "name" : "data",
+          "position" : {
+            "x" : 664.4999861037905,
+            "y" : 144.719996142636
+          },
+          "scheduledState" : "ENABLED",
+          "type" : "INPUT_PORT"
+        } ],
+        "instanceIdentifier" : "d80fe614-b7e0-46bc-7ca9-16e81878df8d",
+        "labels" : [ ],
+        "name" : "Retry Check Loop",
+        "outputPorts" : [ {
+          "allowRemoteAccess" : false,
+          "comments" : "Items sent to this port have not yet exceeded the maximum retry count.",
+          "componentType" : "OUTPUT_PORT",
+          "concurrentlySchedulableTaskCount" : 1,
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "14537044-b273-387b-a215-ae85f75fcdf2",
+          "instanceIdentifier" : "de67351f-6e63-4557-9c56-9daca271abcc",
+          "name" : "retry",
+          "position" : {
+            "x" : 399.00003188015785,
+            "y" : 830.8000063660247
+          },
+          "scheduledState" : "ENABLED",
+          "type" : "OUTPUT_PORT"
+        }, {
+          "allowRemoteAccess" : false,
+          "componentType" : "OUTPUT_PORT",
+          "concurrentlySchedulableTaskCount" : 1,
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "470b4a1c-fd7e-30ff-aa84-f2cac42c08f7",
+          "instanceIdentifier" : "62021278-2608-4b09-6bcd-7edf3bb650c3",
+          "name" : "limit exceeded",
+          "position" : {
+            "x" : 1065.7360243117982,
+            "y" : 1094.012761492978
+          },
+          "scheduledState" : "ENABLED",
+          "type" : "OUTPUT_PORT"
+        } ],
+        "position" : {
+          "x" : 2872.0,
+          "y" : 1232.0
+        },
+        "processGroups" : [ ],
+        "processors" : [ {
+          "autoTerminatedRelationships" : [ ],
+          "backoffMechanism" : "PENALIZE_FLOWFILE",
+          "bulletinLevel" : "WARN",
+          "bundle" : {
+            "artifact" : "nifi-update-attribute-nar",
+            "group" : "org.apache.nifi",
+            "version" : "1.27.0"
+          },
+          "comments" : "",
+          "componentType" : "PROCESSOR",
+          "concurrentlySchedulableTaskCount" : 1,
+          "executionNode" : "ALL",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "873d80fc-aeff-3ed0-b2ff-c33417c7d481",
+          "instanceIdentifier" : "8692729d-e3f2-472d-b51a-e002bc152418",
+          "maxBackoffPeriod" : "10 mins",
+          "name" : "Set retry counter",
+          "penaltyDuration" : "30 sec",
+          "position" : {
+            "x" : 553.5000318801578,
+            "y" : 292.12000636602465
+          },
+          "properties" : {
+            "Store State" : "Do not store state",
+            "canonical-value-lookup-cache-size" : "100",
+            "retry.maxcount" : "${retry.maxcount:replaceNull('3')}",
+            "retry.counter" : "${retry.counter:replaceNull('0'):plus(1)}"
+          },
+          "propertyDescriptors" : {
+            "Delete Attributes Expression" : {
+              "displayName" : "Delete Attributes Expression",
+              "identifiesControllerService" : false,
+              "name" : "Delete Attributes Expression",
+              "sensitive" : false
+            },
+            "Store State" : {
+              "displayName" : "Store State",
+              "identifiesControllerService" : false,
+              "name" : "Store State",
+              "sensitive" : false
+            },
+            "canonical-value-lookup-cache-size" : {
+              "displayName" : "Cache Value Lookup Cache Size",
+              "identifiesControllerService" : false,
+              "name" : "canonical-value-lookup-cache-size",
+              "sensitive" : false
+            },
+            "retry.maxcount" : {
+              "displayName" : "retry.maxcount",
+              "identifiesControllerService" : false,
+              "name" : "retry.maxcount",
+              "sensitive" : false
+            },
+            "Stateful Variables Initial Value" : {
+              "displayName" : "Stateful Variables Initial Value",
+              "identifiesControllerService" : false,
+              "name" : "Stateful Variables Initial Value",
+              "sensitive" : false
+            },
+            "retry.counter" : {
+              "displayName" : "retry.counter",
+              "identifiesControllerService" : false,
+              "name" : "retry.counter",
+              "sensitive" : false
+            }
+          },
+          "retriedRelationships" : [ ],
+          "retryCount" : 0,
+          "runDurationMillis" : 0,
+          "scheduledState" : "ENABLED",
+          "schedulingPeriod" : "0 sec",
+          "schedulingStrategy" : "TIMER_DRIVEN",
+          "style" : { },
+          "type" : "org.apache.nifi.processors.attributes.UpdateAttribute",
+          "yieldDuration" : "1 sec"
+        }, {
+          "autoTerminatedRelationships" : [ ],
+          "backoffMechanism" : "PENALIZE_FLOWFILE",
+          "bulletinLevel" : "WARN",
+          "bundle" : {
+            "artifact" : "nifi-update-attribute-nar",
+            "group" : "org.apache.nifi",
+            "version" : "1.27.0"
+          },
+          "comments" : "",
+          "componentType" : "PROCESSOR",
+          "concurrentlySchedulableTaskCount" : 1,
+          "executionNode" : "ALL",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "8ebc0677-0515-3bc7-9291-79b3f02eb7c5",
+          "instanceIdentifier" : "34b75d26-46b8-3d67-1327-74902378972d",
+          "maxBackoffPeriod" : "10 mins",
+          "name" : "Reset retry counter",
+          "penaltyDuration" : "30 sec",
+          "position" : {
+            "x" : 944.0461967026852,
+            "y" : 827.0586792520415
+          },
+          "properties" : {
+            "Store State" : "Do not store state",
+            "canonical-value-lookup-cache-size" : "100",
+            "retry.counter" : "0"
+          },
+          "propertyDescriptors" : {
+            "Delete Attributes Expression" : {
+              "displayName" : "Delete Attributes Expression",
+              "identifiesControllerService" : false,
+              "name" : "Delete Attributes Expression",
+              "sensitive" : false
+            },
+            "Store State" : {
+              "displayName" : "Store State",
+              "identifiesControllerService" : false,
+              "name" : "Store State",
+              "sensitive" : false
+            },
+            "canonical-value-lookup-cache-size" : {
+              "displayName" : "Cache Value Lookup Cache Size",
+              "identifiesControllerService" : false,
+              "name" : "canonical-value-lookup-cache-size",
+              "sensitive" : false
+            },
+            "Stateful Variables Initial Value" : {
+              "displayName" : "Stateful Variables Initial Value",
+              "identifiesControllerService" : false,
+              "name" : "Stateful Variables Initial Value",
+              "sensitive" : false
+            },
+            "retry.counter" : {
+              "displayName" : "retry.counter",
+              "identifiesControllerService" : false,
+              "name" : "retry.counter",
+              "sensitive" : false
+            }
+          },
+          "retriedRelationships" : [ ],
+          "retryCount" : 0,
+          "runDurationMillis" : 0,
+          "scheduledState" : "ENABLED",
+          "schedulingPeriod" : "0 sec",
+          "schedulingStrategy" : "TIMER_DRIVEN",
+          "style" : { },
+          "type" : "org.apache.nifi.processors.attributes.UpdateAttribute",
+          "yieldDuration" : "1 sec"
+        }, {
+          "autoTerminatedRelationships" : [ ],
+          "backoffMechanism" : "PENALIZE_FLOWFILE",
+          "bulletinLevel" : "WARN",
+          "bundle" : {
+            "artifact" : "nifi-standard-nar",
+            "group" : "org.apache.nifi",
+            "version" : "1.27.0"
+          },
+          "comments" : "",
+          "componentType" : "PROCESSOR",
+          "concurrentlySchedulableTaskCount" : 1,
+          "executionNode" : "ALL",
+          "groupIdentifier" : "0d895c1b-a1d1-3e9b-be76-c324bc57f87b",
+          "identifier" : "71666763-db68-34f6-b929-727180c43fc2",
+          "instanceIdentifier" : "10f53281-4064-4725-267c-57c508f86539",
+          "maxBackoffPeriod" : "10 mins",
+          "name" : "Check Retry Count",
+          "penaltyDuration" : "30 sec",
+          "position" : {
+            "x" : 555.0000776565249,
+            "y" : 527.9600063660247
+          },
+          "properties" : {
+            "Routing Strategy" : "Route to Property name",
+            "Try again" : "${retry.counter:le('${retry.maxcount}')}"
+          },
+          "propertyDescriptors" : {
+            "Routing Strategy" : {
+              "displayName" : "Routing Strategy",
+              "identifiesControllerService" : false,
+              "name" : "Routing Strategy",
+              "sensitive" : false
+            },
+            "Try again" : {
+              "displayName" : "Try again",
+              "identifiesControllerService" : false,
+              "name" : "Try again",
+              "sensitive" : false
+            }
+          },
+          "retriedRelationships" : [ ],
+          "retryCount" : 0,
+          "runDurationMillis" : 0,
+          "scheduledState" : "ENABLED",
+          "schedulingPeriod" : "0 sec",
+          "schedulingStrategy" : "TIMER_DRIVEN",
+          "style" : { },
+          "type" : "org.apache.nifi.processors.standard.RouteOnAttribute",
+          "yieldDuration" : "1 sec"
+        } ],
+        "remoteProcessGroups" : [ ],
+        "variables" : { }
+      },
+      "flowEncodingVersion" : "1.0",
+      "parameterContexts" : { },
+      "parameterProviders" : { }
+    }
+  }
+}
